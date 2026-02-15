@@ -1,4 +1,5 @@
 public class Producto {
+
     private final String nombre;
     private final double precio;
 
@@ -6,6 +7,7 @@ public class Producto {
         this.nombre = nombre;
         this.precio = precio;
     }
+
     public String getNombre() {
         return nombre;
     }
@@ -13,4 +15,5 @@ public class Producto {
     public double getPrecio() {
         return precio;
     }
+
 }

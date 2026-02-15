@@ -1,26 +1,43 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Carrito {
-    // Clase interna para manejar cantidades
-    private static class Item {
-        Producto producto;
-        int cantidad;
-        Item(Producto p, int c) { this.producto = p; this.cantidad = c; }
-    }
 
-    private final List<Item> items = new ArrayList<>();
+    private List<ItemCarrito> items = new ArrayList<>();
 
-    public void agregarProducto(Producto p, int cantidad) {
-        items.add(new Item(p, cantidad));
-        System.out.println(p.getNombre() + " " + cantidad + " unidades agregado al carrito."); 
+    public void agregarProducto(Producto producto, int cantidad) {
+
+        items.add(new ItemCarrito(producto, cantidad));
+
+        System.out.println(
+                producto.getNombre()
+                        + " x"
+                        + cantidad
+                        + " agregado al carrito."
+        );
+
     }
 
     public double calcularSubtotal() {
-        // Uso de Streams para calcular el total 
-        return items.stream()
-                    .mapToDouble(i -> i.producto.getPrecio() * i.cantidad)
-                    .sum();
+
+        return items
+                .stream()
+                .map(ItemCarrito::getTotal)
+                .reduce(0.0, Double::sum);
+
     }
 
-    public List<Item> getItems() { return items; }
+    public void mostrarProductos() {
+
+        items.forEach(item ->
+
+                System.out.println(
+                        item.getProducto().getNombre()
+                                + " $" + item.getTotal()
+                )
+
+        );
+
+    }
+
 }
